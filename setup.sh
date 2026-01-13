@@ -7,6 +7,9 @@ pkg upgrade -y
 # 📂 Solicita acesso ao armazenamento interno
 termux-setup-storage
 
+# muda para um servidor mais rápido
+termux-change-repo
+
 # 🧰 Instala pacotes essenciais para hacking
 pkg install -y nmap
 pkg install -y whois
