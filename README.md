@@ -1,7 +1,13 @@
-# configurar
-Código bash para configurar termux
+# termux setup
 
-## como usar
-na parte que muda pra uma tela branca só dar enter em tudo
+# what is?
+this is a bash code to automatic your
+termux configuration
 
-uso: `bash setup sh`
+# what use?
+When cloning the repository, type the command.
+
+```bash
+chmod +x setup.sh && ./setup.sh
+```
+
