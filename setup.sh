@@ -1,19 +1,69 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# 🔄 Atualiza os pacotes
-pkg update -y
-pkg upgrade -y
+set -e
 
-# 📂 Solicita acesso ao armazenamento interno
+clear
+echo "[*] Starting Termux setup..."
+
+read -p "Enter your future username: " USERNAME
+
+echo "[*] Updating system..."
+pkg update -y && pkg upgrade -y
+
 termux-setup-storage
 
-# muda para um servidor mais rápido
-termux-change-repo
+echo "[*] Installing basic packages..."
+pkg install -y figlet lolcat git micro curl wget
 
-# 🧰 Instala pacotes essenciais para hacking
-pkg install -y nmap
-pkg install -y whois
-pkg install -y iproute2
-pkg install -y python3
+clear
+echo "Select your user type:"
+echo "[1] Hacker (offensive cybersecurity)"
+echo "[2] Web Developer"
 
-echo "✅ Ambiente Termux configurado com sucesso!"
+read -p "> " TYPESETUP
+
+case "$TYPESETUP" in
+  1)
+    echo "[*] Installing hacker toolkit..."
+
+    pkg install -y python php nodejs sqlite nmap whois dnsutils hydra dirb
+
+    mkdir -p ~/tools ~/laboratory
+
+    cd ~/tools
+    git clone https://github.com/sqlmapproject/sqlmap
+    git clone https://github.com/lanmaster53/recon-ng
+    git clone https://github.com/aboul3la/Sublist3r
+    git clone https://github.com/voidh7/Logger-hell
+
+    cd ~/laboratory
+    git clone https://github.com/omerbenamram/VulnerablePHP
+    git clone https://github.com/juice-shop/juice-shop
+    git clone https://github.com/LukaTheBrave/dvwa-lit
+    ;;
+    
+  2)
+    echo "[*] Installing web dev environment..."
+
+    pkg install -y python nodejs
+    mkdir -p ~/projects
+    ;;
+    
+  *)
+    echo "[!] Invalid option. Exiting."
+    exit 1
+    ;;
+esac
+
+echo "[*] Configuring shell..."
+
+cat <<EOF >> ~/.bashrc
+
+clear
+figlet "Welcome back" | lolcat
+export PS1="[$USERNAME@termux \\W]\\$ "
+
+EOF
+
+echo
+echo "[✓] Termux environment configured successfully."
